@@ -51,3 +51,26 @@ extension Array {
     }
 }
 
+
+// Mutation and Stateful Closures
+extension Array {
+    func accumulate<U>(initial: U, combine: (U, Element) -> U) -> [U] {
+        var running = initial
+        return self.map { next in
+            running = combine(running, next)
+            return running
+        }
+    }
+}
+
+[1, 2, 3, 4].accumulate(0, combine: +)
+
+// Filter
+fibs.filter { $0 % 2 == 0 }
+
+// Find all squares under 100 that are even
+print("\((1..<10).map {$0 * $0 }.filter {$0 % 2 == 0 })")
+
+
+
+
