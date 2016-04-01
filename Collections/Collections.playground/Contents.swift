@@ -71,6 +71,66 @@ fibs.filter { $0 % 2 == 0 }
 // Find all squares under 100 that are even
 print("\((1..<10).map {$0 * $0 }.filter {$0 % 2 == 0 })")
 
+// Reduce
+
+//var total = 0
+//for num in fibs {
+//    total = total + num
+//}
+
+fibs
+fibs.reduce(0, combine: +)
+
+// output of reduce does not have to be the same as the input
+fibs.reduce("") { str, num in str + "\(num)\n"}
+
+// A Flattening Map
+
+let suits = ["♤", "♡", "♧", "♢"]
+let ranks = ["J", "Q", "K", "A"]
+
+let allCombinations = suits.flatMap { suit in ranks.map { rank in  (suit, rank)} }
+print(allCombinations)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
