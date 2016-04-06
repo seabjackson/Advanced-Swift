@@ -92,12 +92,28 @@ let ranks = ["J", "Q", "K", "A"]
 let allCombinations = suits.flatMap { suit in ranks.map { rank in  (suit, rank)} }
 print(allCombinations)
 
+// Iteration using for each
 
+for element in [1, 2, 3] {
+    print(element)
+}
 
+[1, 2, 3].forEach { element in
+    print(element)
+}
 
+// Slices
 
+fibs
+var slice = fibs[1..<fibs.endIndex] // gets me all but the first element in fibs
+slice // type is ArraySlice
+Array(slice)
 
+// Bridging
 
+var numbersArray = [1, 2, 3]
+let z: NSArray = numbersArray
+z[0] is NSNumber
 
 
 
