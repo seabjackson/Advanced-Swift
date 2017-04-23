@@ -112,11 +112,12 @@ Array(slice)
 // Bridging
 
 var numbersArray = [1, 2, 3]
-let z: NSArray = numbersArray
+let z: NSArray = numbersArray as NSArray
 z[0] is NSNumber
 
 
 
+// updated to swift 3 syntax
 
 
 
