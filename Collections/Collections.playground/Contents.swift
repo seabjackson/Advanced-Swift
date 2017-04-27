@@ -175,8 +175,25 @@ let result = suits.flatMap { suit in
         (suit, rank)
     }
 }
-result
 
+// Iteration using forEach
+
+for element in [1, 2, 3] {
+    print(element)
+}
+
+[1, 2, 3].forEach { element in
+    print(element)
+}
+
+extension Array where Element: Equatable {
+    func index(of element: Element) -> Int? {
+        for idx in self.indices where self[idx] == element {
+            return idx
+        }
+        return nil
+    }
+}
 
 
 
