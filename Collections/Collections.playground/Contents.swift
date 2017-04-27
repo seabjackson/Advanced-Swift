@@ -196,6 +196,109 @@ extension Array where Element: Equatable {
 }
 
 
+// Array Types
+
+// Slices
+
+let slice = Array(fibs[1..<fibs.endIndex])
+type(of: slice)
+
+// Dictionaries
+
+enum Setting {
+    case text(String)
+    case int(Int)
+    case bool(Bool)
+}
+
+let defaultSettings: [String: Setting] = [
+        "Airplane Mode": .bool(true),
+        "Name": .text("My iPhone")
+]
+
+defaultSettings["Name"]
+
+// Mutation
+
+var localizedSettings = defaultSettings
+localizedSettings["Name"] = .text("Mein iPhone")
+localizedSettings["Do Not Disturb"] = .bool(true)
+
+let oldName = localizedSettings.updateValue(.text("ll mio iPhone"), forKey: "Name")
+localizedSettings["Name"]
+oldName
+
+// Some Useful Dictionary Extensions
+
+extension Dictionary {
+    mutating func merge<S>(_ other: S) where S: Sequence, S.Iterator.Element == (key: Key, value: Value) {
+        for (k, v) in other {
+            self[k] = v
+        }
+    }
+}
+
+var settings = defaultSettings
+let overridenSettings: [String: Setting] = ["Name": .text("Jane's iPhone")]
+settings.merge(overridenSettings)
+settings
+
+extension Dictionary {
+    init<S: Sequence>(_ sequence: S) where S.Iterator.Element == (key: Key, value: Value) {
+        self = [:]
+        self.merge(sequence)
+    }
+}
+
+let defaultAlarms = (1..<5).map { (key: "Alarm \($0)", value: false) }
+let alarmsDictionary = Dictionary(defaultAlarms)
+
+extension Dictionary {
+    func mapValues<NewValue>(transform: (Value) -> NewValue) -> [Key: NewValue] {
+        return Dictionary<Key, NewValue>(map { (key, value) in
+            return (key, transform(value))
+        })
+    }
+}
+
+
+let settingsAsStrings = settings.mapValues { setting -> String in
+    switch setting {
+    case .text(let text):
+        return text
+    case .int(let number):
+        return String(number)
+    case .bool(let value):
+        return String(value)
+    }
+}
+
+settingsAsStrings
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
