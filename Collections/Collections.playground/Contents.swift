@@ -275,9 +275,79 @@ let settingsAsStrings = settings.mapValues { setting -> String in
 
 settingsAsStrings
 
+// Hashable Requirement
 
+struct Person {
+    
+    var name: String
+    var zipCode: Int
+    var birthday: Date
+}
 
+extension Person: Equatable {
+    
+    static func ==(lhs: Person, rhs: Person) -> Bool {
+        return lhs.name == rhs.name
+        && lhs.zipCode == rhs.zipCode
+        && lhs.birthday == rhs.birthday
+    }
+}
 
+extension Person: Hashable {
+    var hashValue: Int {
+        return name.hashValue ^ zipCode.hashValue ^ birthday.hashValue
+    }
+}
+
+// Sets
+
+let naturals: Set = [1, 2, 3, 2]
+naturals
+naturals.contains(3)
+naturals.contains(0)
+
+// Set Algebra
+
+let iPods: Set = ["iPod touch", "iPod nano", "iPod mini", "iPod shuffle", "iPod Classic"]
+let discontinuediPods: Set = ["iPod mini", "iPod Classic"]
+let currentiPods = iPods.subtracting(discontinuediPods)
+
+let touchScreen: Set = ["iPhone", "iPad", "iPod touch", "iPod nano"]
+let iPodsWithTouch = iPods.intersection(touchScreen)
+
+var discontinued: Set = ["iBook", "Powerbook", "Power Mac"]
+discontinued.formUnion(discontinuediPods)
+
+// Index Sets and Character Sets
+
+var indices = IndexSet()
+indices.insert(integersIn: 1..<5)
+indices.insert(integersIn: 11..<15)
+let evenIndices = indices.filter { $0 % 2 == 0 }
+
+// Using Sets Inside Closures
+
+extension Sequence where Iterator.Element: Hashable {
+    func unique() -> [Iterator.Element] {
+        var seen: Set<Iterator.Element> = []
+        return filter {
+            if seen.contains($0) {
+                return false
+            } else {
+                seen.insert($0)
+                return true
+            }
+        }
+    }
+}
+
+[1, 2, 3, 12, 1, 3, 4, 5, 6, 4, 6].unique()
+
+// Ranges
+
+let singleDigitNumbers = 0..<10
+
+let lowerCaseLetters = Character("a")...Character("z")
 
 
 
